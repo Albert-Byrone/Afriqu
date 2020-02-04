@@ -1,0 +1,78 @@
+{% extends "base.html"%}
+{% load bootstrap4 %}
+{% load static %}
+{% block content %}
+    <div class="container">
+       <hr class="my-4">
+       <h1 class="">Products</h1>
+       <hr class="my-4">
+       <div class="row">
+        <div class="col">
+          <form class="form-inline" action="{% url 'search_products' %}">
+            <div class="md-form my-0">
+              <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search product" required aria-label="Search">
+            </div>
+          </form>
+
+          <form class="form-inline" action="{% url 'reorder_notification' %}">
+            <div class="md-form my-0">
+              <button class="form-control mr-sm-2"  required>Check Product</button>
+            </div>
+          </form>
+        </div>
+      </div>
+                <div class="table-responsive border rounded p-1">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th class="font-weight-bold">Product Name</th>
+                          <th class="font-weight-bold">Product Size</th>
+                          <th class="font-weight-bold">Product Quantity</th>
+                          <th class="font-weight-bold">Product Category</th>
+                          <th class="font-weight-bold">Product Price</th>
+                          <th>
+                            {% if request.user.is_manager or  request.user.is_staff %}
+                            <a href="{% url 'add_product' %}" class="btn btn-outline-success">
+                                <i class="fas fa-plus"></i> Add New
+                            </a>
+                            {% endif %}
+                        </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for product in products %}
+                        <tr>
+                          <td>{{product.product_name}} </td>
+                          <td>{{product.product_size}}</td>
+                          <td>{{product.product_qyt}}</td>
+                          <td>{{product.product_category}}</td>
+                          <td>Ksh {{product.product_price}}</td>
+                          
+                         
+                          {% if request.user.is_manager or  request.user.is_staff %}
+                          <td>
+                            <a href="{% url 'update_product' product.id %}" class="btn text-secondary px-0">
+                                <i class="far fa-edit fa-lg"></i>
+                            </a>
+                            <form action="{% url 'delete_product' product.id %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn">
+                                    <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                                </button>
+                            </form>
+                        </td>
+                        {% endif %}
+                          
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+
+            
+     
+    </div>
+
+  
+
+{% endblock %}

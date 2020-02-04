@@ -1,0 +1,66 @@
+{%extends "base.html"%}
+{% load bootstrap4 %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <hr class="my-4">
+    <h1 class="">Purchase Report</h1>
+    <div class="row">
+            <div class="col-md-2">
+                    <button id="fit" class="btn btn-success" type="submit">Filter</button>
+                </div>
+        <div class="col-sm-7">
+            <form action="{% url 'filter_purchase' %}" method="POST" id="rem" >
+                {%csrf_token%}
+                Start: <input  type="date" name="start_date" required>
+                End: <input type="date" name="end_date" required>
+                <button class="btn btn-success" type="submit">submit</button>
+              </form>
+        </div>
+        <div class="col-sm-3">
+            <a href="{% url 'export' %}"><button type="submit" class="btn btn-secondary btn-block btn-sm"><i class="fas fa-file-export"></i>
+                Export in Excel</button></a>
+        </div>
+
+    </div>
+    <br>
+    <div class="table-responsive border rounded p-1">
+      <table class="table">
+        <thead>
+                        <tr>
+                            <th class="font-weight-bold">Purchase Date</th>
+                            <th class="font-weight-bold">Purchase ID</td>
+                            <th class="font-weight-bold">Supplier Name</th>
+                            <th class="font-weight-bold">Total Amount(KSH)</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for purchase in purchases %}
+                            <tr>
+                                <td>{{purchase.date | date }}</td>
+                                <td>{{purchase.id}}</td>
+                                <td>{{purchase.supplier_name}}</td>
+                                <td>{{purchase.get_total}}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td class="" style="font-weight:bold;">TOTAL</td>
+                            <td>{{ final_total }}</td></tr>
+                    </tbody>
+                    
+            
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function(){
+              $("#fit").click(function(){
+                $("#rem").slideToggle();
+              });
+            });
+            </script>
+   
+{% endblock %}

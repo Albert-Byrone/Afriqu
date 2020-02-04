@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h3>Add New Client</h3>
+    <form action="" enctype="multipart/form-data" method="post" autocomplete="off">
+            {% csrf_token %}
+            {{form.client_name | as_crispy_field }}
+            {{form.client_phone | as_crispy_field  }}
+            {{form.product | as_crispy_field  }}
+            <div class="row">
+                <div class="col-md-6">
+                    
+                    <button type="submit" class="btn btn-secondary btn-block btn-lg"><i class="fas fa-database"></i>
+                        Save</button>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'client_list'%}" class="btn btn-secondary btn-block  btn-lg">
+                        <i class="fas fa-arrow-alt-circle-left">Back </i> 
+                    </a>
+                </div>
+            </form>
+</div>
+        
+{% endblock %}

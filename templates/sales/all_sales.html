@@ -1,0 +1,64 @@
+{% extends "base.html"%}
+{% load bootstrap4 %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <hr class="my-4">
+    <h1 class="">Sales</h1>
+    <hr class="my-4">
+    <div class="table-responsive border rounded p-1">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="font-weight-bold">Sale Date</th class="font-weight-bold">
+                    <th class="font-weight-bold">Sale NO.</th>
+                    <th class="font-weight-bold">Client Name</th>
+                    <th class="font-weight-bold">Product Name</th>
+                    <th class="font-weight-bold">Product price(KSH)</th>
+                    <th class="font-weight-bold">Quantity</th>
+                    <th class="font-weight-bold">Product Amount(KSH)</th>
+                    <th class="font-weight-bold">
+                        {% if request.user.is_manager or  request.user.is_staff %}
+                        <a href="{% url 'add_sell'  %}" class="btn btn-outline-success">
+                            <i class="fas fa-plus"></i> Add New
+                        </a>
+                        {% endif %}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sale in sales %}
+                <tr>
+                    <td>{{sale.date | date}}</td>
+                    <td>{{sale.id}}</td>
+                    <td>{{sale.client.client_name}}</td>
+                    <td>{{sale.product.product_name}}</td>
+                    <td>{{sale.product.product_price}}</td>
+                    <td>{{sale.quantity}}</td>
+                    <td>{{sale.get_total}}</td>
+                    <td>{{sale.final_quantity}}</td>
+
+                     
+                    {% if request.user.is_manager or  request.user.is_staff %}
+                    <td>
+                      <a href="{% url 'update_product' product.id %}" class="btn text-secondary px-0">
+                          <i class="far fa-edit fa-lg"></i>
+                      </a>
+                      <form action="{% url 'delete_product' product.id %}" method="post" class="d-inline">
+                          {% csrf_token %}
+                          <button type="submit" class="btn">
+                              <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                          </button>
+                      </form>
+                  </td>
+                  {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+</div>
+
+{% endblock %}

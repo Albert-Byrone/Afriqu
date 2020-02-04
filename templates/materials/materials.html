@@ -1,0 +1,79 @@
+{% extends "base.html"%}
+{% load bootstrap4 %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <hr class="my-4">
+  <h1 class="">Materials</h1>
+  <hr class="my-4">
+    <div class="row">
+        <div class="col">
+          <form class="form-inline" action="{% url 'search_materials' %}">
+            <div class="md-form my-0">
+              <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search material" required aria-label="Search">
+            </div>
+          </form>
+        </div>
+  
+      </div>
+      <form class="form-inline" action="{% url 'reorder_materials' %}">
+        <div class="md-form my-0">
+          <button class="form-control mr-sm-2" required>check items</button>
+        </div>
+    </form>
+
+<div class="table-responsive border rounded p-1">
+<table class="table table-hover">
+  <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th> Quantity</th>
+                            <th> Price</th>
+                            <th>Date</th>
+                            
+                         
+                            <td>
+                                {% if request.user.is_manager or  request.user.is_staff %}
+                                <a href="{% url 'add_material' %}" class="btn btn-outline-success">
+                                    <i class="fas fa-plus"></i> Add New
+                                </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </thead>    
+                    <tbody>
+                      {% for material in materials%}
+                            <tr>
+                                <td>{{material.material_name}}</td>
+                                <td>{{material.quantity}}</td>
+                                <td>{{material.price}}</td>
+                                <td>{{material.date}}</td>
+                              
+                                
+                                <td>
+                                    {% if request.user.is_manager or  request.user.is_staff %}
+                                    <a href="{% url 'edit_material' material.id %}" class="btn text-secondary px-0">
+                                        <i class="far fa-edit fa-lg"></i>
+                                    </a>
+                                    <form action="{% url 'delete_material' material.id %}" method="post" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn">
+                                            <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                                        </button>
+                                    </form>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
