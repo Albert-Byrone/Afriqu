@@ -1,0 +1,12 @@
+Task 1-Albert
+
+send password to respective emails email validations- check if email is legit snd send password
+
+Task 1-Tyra
+add filter with mutlitple arguments
+
+password reset
+invoice
+
+Permmisiong ..brings logs to the admin and super admin 
+make different sales on same form instance
