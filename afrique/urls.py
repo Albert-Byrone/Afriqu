@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^logout/$', views.logout, {"next_page": '/'}),
+    url(r'^admin/log_viewer/', include('log_viewer.urls')),
     url(r'',include('login.urls')),
     url(r'',include('client.urls')),
     url(r'',include('products.urls')),

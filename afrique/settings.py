@@ -82,7 +82,10 @@ INSTALLED_APPS = [
     'sales',
     'bootstrap4',
 
+
+    # third part apps
     'crispy_forms',
+    "log_viewer",
 
 ]
 
@@ -175,6 +178,12 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+
+LOG_VIEWER_FILES = ['logfile1', 'logfile2', ...]
+LOG_VIEWER_FILES_DIR = os.path.join(BASE_DIR, '../logs')
+LOG_VIEWER_MAX_READ_LINES = 1000  # total log lines will be read
+LOG_VIEWER_PAGE_LENGTH = 25       # total log lines per-page
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
