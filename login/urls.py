@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^users/(?P<id>\d+)/$', views.users_form,name="update_user"),
     url(r'^users/delete/(?P<id>\d+)/$', views.delete_user,name="delete_user"),
     url(r'^users/list/$',views.users_list,name="users_list"),
+    url(r'^logs/$',views.get_logs,name="user_logs"),
     url(r'^main/',views.main,name='main'),
     
 

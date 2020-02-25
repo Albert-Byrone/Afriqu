@@ -11,9 +11,12 @@ from materials.models import *
 from sales.models import *
 from supplier.models import *
 from client.models import *
+from login.admin import LogEntryAdmin
 
 from purchase.models import *
 from products.models import *
+
+from django.db import connection
 
 
 # test for categoriesgitch
@@ -150,3 +153,8 @@ def delete_user(request,id):
 
 
 
+def get_logs(request):
+    loggs = connection.queries
+    # import pdb; pdb.set_trace()
+    print(loggs,"lohgggg")
+    return render(request,"logs.html",locals())
