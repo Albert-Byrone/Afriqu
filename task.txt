@@ -10,3 +10,6 @@ invoice
 
 Permmisiong ..brings logs to the admin and super admin 
 make different sales on same form instance
+
+
+given a number a ..return a power b if a is divisible by b

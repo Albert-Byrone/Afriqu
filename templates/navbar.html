@@ -131,6 +131,10 @@
             <li class="nav-item">
               <a href="{%  url 'all_materials'%}">Manage Materials</a>
             </li>
+
+            <li class="nav-item">
+              <a href="{%  url 'all_materials'%}">Remaining Materials</a>
+            </li>
           </ul>
         </div>
       </li> 
@@ -169,6 +173,28 @@
           </ul>
         </div>
       </li>
+
+
+
+      {% if request.user.is_staff %}
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#ui-basic6" aria-expanded="false" aria-controls="ui-basic6">
+          <span class="menu-title">Logs</span>
+          <i class="fas fa-user menu-icon"></i>
+        </a>
+        <div class="collapse" id="ui-basic6">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"><a href="{%  url 'user_logs' %}">All Logs</a>
+            </li>
+            <li class="nav-item"><a href="{%  url 'add_user' %}">Addition Logs</a>
+            </li>
+            <li class="nav-item">
+              <a href="{%  url 'users_list'%}">Deletion Logs</a>
+            </li>
+          </ul>
+        </div>
+      </li> 
+      {% endif %}
     </ul>
   </nav>
   <script type="text/javascript">
