@@ -9,6 +9,11 @@ def randomPassword(stringLength=10):
     letters = string.ascii_letters
     return ''.join(random.choice(letters) for i in range(stringLength))
 
+# class UserForm(forms.ModelForm):
+#     class Meta:
+#         model = User
+#         fields = ['groups','email','name','password','is_staff']
+
 class UserForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
@@ -25,14 +30,17 @@ class UserForm(forms.ModelForm):
             raise forms.ValidationError("Password does not match")
         return password2
 
-    def save(self,commit=True):
-        user = super().save(commit=False)
+
+    def create_user(self,commit=True):
+        user = super(UserForm, self).save(commit=False)
+        print(user,"hfgfgfg")
         user.set_password(self.cleaned_data["password1"])
-        user.save()
         credentials = self.cleaned_data["password1"]
         email = user.email
         name = user.name
         send_credentials(credentials,name,email)
+
+
 
 
 
