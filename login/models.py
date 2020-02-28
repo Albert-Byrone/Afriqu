@@ -24,7 +24,7 @@ class UserManager(BaseUserManager):
         user.save(using = self._db)
         return user
 
-    def create_user(self,email=None,password=None,**extra_fields):
+    def create_user(self,email=None,password='testpw',**extra_fields):
         return self._create_user(email,password,False,False,**extra_fields)
 
     def create_superuser(self,email,password,**extra_fields):
@@ -57,7 +57,7 @@ class User(AbstractBaseUser,PermissionsMixin):
 class user_type(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     is_accountant = models.BooleanField(default= False)
-    is_manager = models.BooleanField(default= False)
+    is_store = models.BooleanField(default= False)
 
     def __str__(self):
         if self.is_accountant ==True:

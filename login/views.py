@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import REDIRECT_FIELD_NAME
-from login.forms import UserForm
+from login.forms import UserCreationForm
 from materials.models import *
 from sales.models import *
 from supplier.models import *
@@ -29,7 +29,7 @@ from django.db import connection
 def login(request):
     if request.method == "POST":
         email = request.POST.get('email')
-        password = request.POST.get("passowrd")
+        password = request.POST.get("password")
         user = authenticate(request,email=email,password=password)
 
         if user is not None:
@@ -47,8 +47,6 @@ def login(request):
 @login_required(login_url='/accounts/login')
 def home(request):
     grp = request.user.groups.filter(user=request.user)[0]
-    print(request.user.groups)
-    print(request.user)
     if grp.name == "store_manager":
         return redirect(reverse(shome))
     elif grp.name == "accountant":
@@ -126,19 +124,20 @@ def users_list(request):
 def users_form(request,id=0):
     if request.method == "GET":
         if id == 0:
-            form = UserForm()
+            form = UserCreationForm()
+
         else:
             user = User.objects.get(pk=id) 
            
-            form = UserForm(instance=user)
+            form = UserCreationForm(instance=user)
         return render(request,"accounts/accounts_form.html",{'form':form})
     else:
         if id == 0:
-            form = UserForm(request.POST,request.FILES)
+            form = UserCreationForm(request.POST,request.FILES)
             
         else:
             user = User.objects.get(pk=id)
-            form = UserForm(request.POST,instance=user) 
+            form = UserCreationForm(request.POST,instance=user) 
         if form.is_valid():
             form = form.save(commit=False)
             password = request.POST['password']
@@ -156,5 +155,5 @@ def delete_user(request,id):
 def get_logs(request):
     loggs = connection.queries
     # import pdb; pdb.set_trace()
-    print(loggs,"lohgggg")
+    # print(loggs,"lohgggg")
     return render(request,"logs.html",locals())

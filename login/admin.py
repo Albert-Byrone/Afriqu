@@ -3,12 +3,13 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.admin.models import LogEntry, DELETION
 from django.utils.html import escape
 from django.core.urlresolvers import reverse
-from login.forms import UserForm
+from login.forms import UserCreationForm,UserChangeForm
 
 from .models import User,user_type
 
 class UserAdmin(BaseUserAdmin):
-    add_form = UserForm
+    form = UserChangeForm
+    add_form = UserCreationForm
     fieldsets = (
         (None, {'fields': ('email', 'password', 'name', 'last_login')}),
         ('Permissions', {'fields': (
