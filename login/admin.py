@@ -44,6 +44,7 @@ class LogEntryAdmin(admin.ModelAdmin):
 
     list_filter = [
         'user',
+        
         'content_type',
         'action_flag'
     ]
@@ -57,6 +58,7 @@ class LogEntryAdmin(admin.ModelAdmin):
     list_display = [
         'action_time',
         'user',
+        # 'object',
         'content_type',
         'object_link',
         'action_flag_',
