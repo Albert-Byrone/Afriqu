@@ -47,8 +47,6 @@ def login(request):
 @login_required(login_url='/accounts/login')
 def home(request):
     grp = request.user.groups.filter(user=request.user)[0]
-    print(request.user.groups)
-    print(request.user)
     if grp.name == "store_manager":
         return redirect(reverse(shome))
     elif grp.name == "accountant":
@@ -127,7 +125,7 @@ def users_form(request,id=0):
     if request.method == "GET":
         if id == 0:
             form = UserCreationForm()
-            print(form)
+
         else:
             user = User.objects.get(pk=id) 
            
@@ -157,5 +155,5 @@ def delete_user(request,id):
 def get_logs(request):
     loggs = connection.queries
     # import pdb; pdb.set_trace()
-    print(loggs,"lohgggg")
+    # print(loggs,"lohgggg")
     return render(request,"logs.html",locals())
