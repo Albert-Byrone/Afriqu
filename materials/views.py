@@ -66,3 +66,17 @@ def reorder_materials(request):
     else:
         messages.success(request, f"{total}" ' materials stock')
     return render(request, 'materials/search.html',locals())
+
+
+def use_item(request, cls):
+    if request.method == "POST":
+        form = cls(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('all_materials')
+    else:
+        form = cls()  
+        return render(request, 'materials/use_materials.html', locals())
+def use_material(request):
+    return use_item(request, UseMaterialForm)
+   
