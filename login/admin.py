@@ -8,6 +8,8 @@ from login.forms import UserCreationForm,UserChangeForm
 from .models import User,user_type
 
 class UserAdmin(BaseUserAdmin):
+    form = UserChangeForm
+    add_form = UserCreationForm
     fieldsets = (
         (None, {'fields': ('email', 'password', 'name', 'last_login')}),
         ('Permissions', {'fields': (
@@ -23,12 +25,11 @@ class UserAdmin(BaseUserAdmin):
             None,
             {
                 'classes': ('wide',),
-                'fields': ('email','password1', 'password2')
+                'fields': ('email', 'password1', 'password2')
             }
         ),
     )
-    form = UserChangeForm
-    add_form = UserCreationForm
+
     list_display = ('email', 'name', 'is_staff', 'last_login')
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
     search_fields = ('email',)
@@ -100,4 +101,3 @@ class LogEntryAdmin(admin.ModelAdmin):
 admin.site.register(LogEntry, LogEntryAdmin)
 admin.site.register(User, UserAdmin)
 admin.site.register(user_type)
-admin.site.site_header = 'Teste Afrique Administration'
