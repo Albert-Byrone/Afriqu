@@ -126,6 +126,7 @@
           <ul class="nav flex-column sub-menu">
             {% if request.user.is_manager or  request.user.is_staff %}
             <li class="nav-item"><a href="{%  url 'add_material'%}">Add Material</a>
+              <li class="nav-item"><a href="{%  url 'use_material'%}">Use Material</a>
             
 
             {% endif %}

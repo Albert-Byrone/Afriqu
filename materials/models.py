@@ -28,14 +28,14 @@ class Material(models.Model):
         return search
 
     def __str__(self):
-        return f'{self.material_name}'
+        return f'{self.quantity}'
 
     class Meta:
         ordering = ['date']
 
 
 class Usematerial(models.Model):
-    usematerial_name = models.CharField(max_length=100)
+    material = models.CharField(max_length=100)
     quantity = models.PositiveIntegerField()
     date = models.DateTimeField(auto_now_add=True)
 
@@ -51,7 +51,7 @@ class Usematerial(models.Model):
         return search
 
     def __str__(self):
-        return f'{self.usematerial_name}'
+        return f'{self.material_quantity}{self.material}'
 
     class Meta:
         ordering = ['date']
