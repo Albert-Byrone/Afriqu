@@ -70,12 +70,23 @@ def reorder_materials(request):
 def use_item(request, cls):
     sum = 0
     quantity = 0
+    used_quantity = 0
+    used_sum = 0
     materials = Material.objects.all()
     used_material = Usematerial.objects.all()
     for item in materials:
         quantity = item.quantity
         sum += int(quantity)
-        print(sum , 'yyyyyyyyyyyyyyyyyy')
+    print(sum , 'materials')
+
+    for item in used_material:
+        used_quantity = item.quantity
+        used_sum += int(used_quantity) 
+    print(used_sum, 'materials used')
+    
+    remaining_materials = sum - used_sum
+    print(remaining_materials, 'remaining')
+
 
         
     # for item in used_material:

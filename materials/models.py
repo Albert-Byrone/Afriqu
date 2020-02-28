@@ -51,7 +51,7 @@ class Usematerial(models.Model):
         return search
 
     def __str__(self):
-        return f'{self.material_quantity}{self.material}'
+        return f'{self.quantity}'
 
     class Meta:
         ordering = ['date']
