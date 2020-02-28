@@ -32,3 +32,28 @@ class Material(models.Model):
 
     class Meta:
         ordering = ['date']
+
+
+class Usematerial(models.Model):
+    material = models.CharField(max_length=100)
+    quantity = models.PositiveIntegerField()
+    date = models.DateTimeField(auto_now_add=True)
+
+    def save_usematerial(self):
+        self.save()
+
+    def delete_usematerial(self):
+        self.delete()
+
+    @classmethod
+    def search(cls,searchterm):
+        search = cls.objects.filter(Q(usematerial_name__icontains=searchterm))
+        return search
+
+    def __str__(self):
+        return f'{self.material}'
+
+    class Meta:
+        ordering = ['date']
+
+

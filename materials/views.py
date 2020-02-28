@@ -60,9 +60,33 @@ def reorder_materials(request):
     total = 0
     for material in materials:
         total = total  + int(material.quantity)
-    print()
     if total < 20:
         messages.warning(request, 'Stock  running low ' f"{total}" ' materials left')
     else:
         messages.success(request, f"{total}" ' materials stock')
     return render(request, 'materials/search.html',locals())
+
+def use_item(request,cls):
+    materials = Material.objects.all()
+    if request.method == "POST":
+        form = cls(request.POST)
+        if form.is_valid():
+            obj = Material.objects.filter(material_name=request.POST['material'])
+            for item in obj:
+                item.quantity = item.quantity - int(request.POST['quantity'])
+                print(item.quantity)
+                print('there are ',item.material_name , item.quantity)
+                item.save()
+                form.save()
+                messages.success(request, f"{item.quantity ,item.material_name}" ' left')
+            return redirect('all_materials')
+    else:
+        form = cls()
+        return render(request, 'materials/use_materials.html', locals())
+def use_material(request):
+    return use_item(request,UseMaterialForm)
+
+
+
+
+

@@ -10,6 +10,10 @@ urlpatterns = [
   url(r'^material/edit_material/(?P<pk>\d+)$',edit_material, name='edit_material'),
   url(r'^materials/search/', search_materials, name='search_materials'),
   url(r'^materials/reorder_materials/',reorder_materials, name='reorder_materials'),
+  url(r'^materials/use_material/',use_material, name='use_material'),
+
+
+  
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
