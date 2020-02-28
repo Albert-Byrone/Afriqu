@@ -1,14 +1,16 @@
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
 
-def send_credentials(password,name,receiver):
-    subject = 'Taste Afrique PAssword Management.'
+def send_credentials(password,receiver):
+    subject = 'Taste Afrique Password Management.'
     sender = 'albertbyrone1677@gmail.com'
 
-    text_content = render_to_string('email/passwordemail.txt', {"password":password, "name":name})
-    html_content = render_to_string('email/passwordemail.html', {"password":password, "name":name})
+    # text_content = render_to_string('email/passwordemail.txt', {"password":password})
+    html_content = render_to_string('email/passwordemail.html', {"password":password})
 
-    msg = EmailMultiAlternatives((subject,text_content,sender))
-    msg.attach_alternative(html_content, 'text/html')
-    msg.send()
+    send_mail(subject,html_content,sender,[receiver])
+    # msg.attach_alternative(html_content, 'text/html')
+    # import pdb; pdb.set_trace()
+    # msg.send()
+    # print(msg.send())
