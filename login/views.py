@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import REDIRECT_FIELD_NAME
-from login.forms import UserForm
+from login.forms import UserCreationForm
 from materials.models import *
 from sales.models import *
 from supplier.models import *
@@ -29,7 +29,7 @@ from django.db import connection
 def login(request):
     if request.method == "POST":
         email = request.POST.get('email')
-        password = request.POST.get("passowrd")
+        password = request.POST.get("password")
         user = authenticate(request,email=email,password=password)
 
         if user is not None:
@@ -126,19 +126,20 @@ def users_list(request):
 def users_form(request,id=0):
     if request.method == "GET":
         if id == 0:
-            form = UserForm()
+            form = UserCreationForm()
+            print(form)
         else:
             user = User.objects.get(pk=id) 
            
-            form = UserForm(instance=user)
+            form = UserCreationForm(instance=user)
         return render(request,"accounts/accounts_form.html",{'form':form})
     else:
         if id == 0:
-            form = UserForm(request.POST,request.FILES)
+            form = UserCreationForm(request.POST,request.FILES)
             
         else:
             user = User.objects.get(pk=id)
-            form = UserForm(request.POST,instance=user) 
+            form = UserCreationForm(request.POST,instance=user) 
         if form.is_valid():
             form = form.save(commit=False)
             password = request.POST['password']

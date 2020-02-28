@@ -81,6 +81,7 @@ INSTALLED_APPS = [
     'client',
     'materials',
     'sales',
+    'report',
     'bootstrap4',
 
 
@@ -138,7 +139,7 @@ WSGI_APPLICATION = 'afrique.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'testy',
+        'NAME': 'databa',
         'USER': 'loner',
         'PASSWORD': 'Albert254',
     }
@@ -223,19 +224,31 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Email configurations remember to install python-decouple
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'albertbyrone1677@gmail.com'
+EMAIL_HOST_PASSWORD = 'Albert@1677'
+
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# SENDGRID_API_KEY='SG.SVXjcuG5RtSCS0BkA9PBAA.pVDVw4K0KbIh9C03JMbxD7JGJjj4RKAwCNS5LCyjVDQ'
+# EMAIL_HOST = 'smtp.sendgrid.net'
+# EMAIL_HOST_USER = 'apikey'
+# EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
 # EMAIL_PORT = 587
-# EMAIL_HOST_USER = 'albertbyrone1677@gmail.com'
-# EMAIL_HOST_PASSWORD = 'Albert@1677'
+# EMAIL_USE_TLS = True
+# # Toggle sandbox mode (when running in DEBUG mode)
+# SENDGRID_SANDBOX_MODE_IN_DEBUG=False
 
 
 
-EMAIL_USE_TLS = config('EMAIL_USE_TLS')
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_PORT')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+# EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+# EMAIL_HOST = config('EMAIL_HOST')
+# EMAIL_PORT = config('EMAIL_PORT')
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 LOGGING = {
     'disable_existing_loggers': False,
