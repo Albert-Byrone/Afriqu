@@ -66,44 +66,80 @@ def reorder_materials(request):
         messages.success(request, f"{total}" ' materials stock')
     return render(request, 'materials/search.html',locals())
 
+# ======================= the overall number of materials in stock logic ====================
 
-def use_item(request, cls):
-    sum = 0
-    quantity = 0
-    used_quantity = 0
-    used_sum = 0
-    materials = Material.objects.all()
-    used_material = Usematerial.objects.all()
-    for item in materials:
-        quantity = item.quantity
-        sum += int(quantity)
-    print(sum , 'materials')
-
-    for item in used_material:
-        used_quantity = item.quantity
-        used_sum += int(used_quantity) 
-    print(used_sum, 'materials used')
+# def use_item(request, cls):
+#     sum = 0
+#     material_quantity = 0
+#     used_quantity = 0
+#     used_sum = 0
+#     materials = Material.objects.all()
+#     used_material = Usematerial.objects.all()
+#     for item in materials:
+#         materialquantity = item.quantity
+#         sum += int(materialquantity)
+#     # print(sum , 'materials')
+#         material_name = item.material_name
     
-    remaining_materials = sum - used_sum
-    print(remaining_materials, 'remaining')
-
-
+#         print(material_name)
+    
+#         if material_name is material:
+#             remaining_material = material_quantity - int(quantity)
+#             print(remaining_material)
         
-    # for item in used_material:
-    #     quantity = Material.objects.order_by('quantity')
-    #     print(quantity)
-    #     total_materials = sum + quantity[1]
-        # used_materials = Usematerial.objects.order_by('quantity')
-        # remaining = total_materials - used_materials
+    
+    
+
+#     for item in used_material:
+#         used_quantity = item.quantity
+#         used_sum += int(used_quantity) 
+#     # print(used_sum, 'materials used')
+    
+#     remaining_materials = sum - used_sum
+#     # print(remaining_materials, 'remaining')
+#     if request.method == "POST":
+#         form = cls(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('all_materials')
+#     else:
+#         form = cls()  
+#         return render(request, 'materials/use_materials.html', locals())
+        
+# def use_material(request):
+#     return use_item(request, UseMaterialForm)
+   
+
+# ===========================================================================================
+
+def use_item(request,cls):
+    materials = Material.objects.all()
     if request.method == "POST":
         form = cls(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('all_materials')
-    else:
-        form = cls()  
-        return render(request, 'materials/use_materials.html', locals())
         
+        if form.is_valid():
+            obj = Material.objects.filter(material_name=request.POST['material'])
+            for item in obj:
+                item.quantity = item.quantity - int(request.POST['quantity'])
+                print(item.quantity)
+                print('there are ',item.material_name , item.quantity)
+                item.save()
+                form.save()
+            
+            # obj.quantity = obj.quantity - int(request.POST['quantity'])
+           
+            return redirect('all_materials')
+
+            # print(obj, 'final obj')
+    else:
+        form = cls()
+        return render(request, 'materials/use_materials.html', locals())
+
+
 def use_material(request):
-    return use_item(request, UseMaterialForm)
-   
+    return use_item(request,UseMaterialForm)
+
+
+
+
+
