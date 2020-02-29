@@ -11,6 +11,7 @@ urlpatterns = [
   url(r'^materials/search/', search_materials, name='search_materials'),
   url(r'^materials/reorder_materials/',reorder_materials, name='reorder_materials'),
   url(r'^materials/use_material/',use_material, name='use_material'),
+  url(r'^materials/used_materials/',used_materials, name='used_materials'),
 
 
   

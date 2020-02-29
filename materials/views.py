@@ -8,6 +8,10 @@ def all_materials(request):
     total_materials = Material.objects.all().count()
     return render(request, 'materials/materials.html', locals())
 
+def used_materials(request):
+    used_materials = Usematerial.objects.all()
+    return render(request, 'materials/used_materials.html', locals())
+
 def add_item(request, cls):
     if request.method == "POST":
         form = cls(request.POST)
@@ -68,6 +72,7 @@ def reorder_materials(request):
 
 def use_item(request,cls):
     materials = Material.objects.all()
+    used_materials = Usematerial.objects.all()
     if request.method == "POST":
         form = cls(request.POST)
         if form.is_valid():
@@ -78,13 +83,14 @@ def use_item(request,cls):
                 print('there are ',item.material_name , item.quantity)
                 item.save()
                 form.save()
-                messages.success(request, f"{item.quantity ,item.material_name}" ' left')
+                messages.success(request, f"{item.quantity} { item.material_name}'s left {request.POST['quantity']} {request.POST['material']}s in use")
             return redirect('all_materials')
     else:
         form = cls()
         return render(request, 'materials/use_materials.html', locals())
 def use_material(request):
     return use_item(request,UseMaterialForm)
+
 
 
 
