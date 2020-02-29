@@ -1,0 +1,30 @@
+{% extends "base.html"%}
+{% load bootstrap4 %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <h2>
+        Used Materials
+      </h2>
+                      <table class="table table-hover">
+                        <thead>
+                                              <tr>
+                                                  <th>Name</th>
+                                                  <th>Quantity</th>
+                                                  <th>Date</th>
+                                              </tr>
+                                          </thead>    
+                                          <tbody>
+                                            {% for used_material in used_materials%}
+                                                  <tr>
+                                                      <td>{{used_material}}</td>
+                                                      <td>{{used_material.quantity}}</td>
+                                                      <td>{{used_material.date}}</td>
+                                                  </tr>
+                                            {% endfor %}
+                                          </tbody>
+                                      </table>
+                  
+</div>
+{% endblock %}
