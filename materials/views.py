@@ -5,9 +5,12 @@ from django.contrib import messages
 
 def all_materials(request):
     materials = Material.objects.all()
-    used_materials = Usematerial.objects.all()
     total_materials = Material.objects.all().count()
     return render(request, 'materials/materials.html', locals())
+
+def used_materials(request):
+    used_materials = Usematerial.objects.all()
+    return render(request, 'materials/used_materials.html', locals())
 
 def add_item(request, cls):
     if request.method == "POST":
