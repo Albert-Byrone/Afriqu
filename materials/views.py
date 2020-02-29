@@ -5,6 +5,7 @@ from django.contrib import messages
 
 def all_materials(request):
     materials = Material.objects.all()
+    used_materials = Usematerial.objects.all()
     total_materials = Material.objects.all().count()
     return render(request, 'materials/materials.html', locals())
 
@@ -68,6 +69,8 @@ def reorder_materials(request):
 
 def use_item(request,cls):
     materials = Material.objects.all()
+    used_materials = Usematerial.objects.all()
+    print(used_materials)
     if request.method == "POST":
         form = cls(request.POST)
         if form.is_valid():
@@ -85,6 +88,7 @@ def use_item(request,cls):
         return render(request, 'materials/use_materials.html', locals())
 def use_material(request):
     return use_item(request,UseMaterialForm)
+
 
 
 
