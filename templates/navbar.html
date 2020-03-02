@@ -55,11 +55,11 @@
           <ul class="nav flex-column sub-menu">
             {% if request.user.is_manager or  request.user.is_staff %}
             <li class="nav-item">
-              <a href="{% url 'add_product' %}">Add Product</a>
+              <a href="{% url 'product:add_product' %}">Add Product</a>
             </li>
             {% endif %}
             <li class="nav-item">
-              <a href="{% url 'product_list' %}">Manage Product</a>
+              <a href="{% url 'product:product_list' %}">Manage Product</a>
             </li>
           </ul>
         </div> 

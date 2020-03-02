@@ -128,7 +128,6 @@ def users_form(request,id=0):
 
         else:
             user = User.objects.get(pk=id) 
-           
             form = UserCreationForm(instance=user)
         return render(request,"accounts/accounts_form.html",{'form':form})
     else:

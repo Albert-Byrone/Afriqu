@@ -27,6 +27,7 @@ def client_form(request,id=0):
         if form.is_valid():
             form.save()
         return redirect('/clients/list')
+
 def delete_client(request,id):
     client = Client.objects.get(pk=id)
     client.delete()

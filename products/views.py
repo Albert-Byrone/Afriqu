@@ -25,7 +25,6 @@ def product_form(request,id=0):
             form = ProductForm()
         else:
             product = Product.objects.get(pk=id) 
-            print(product)
             form = ProductForm(instance=product)
         return render(request,"products/product_form.html",{'form':form})
     else:
