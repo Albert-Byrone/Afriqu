@@ -41,7 +41,7 @@
                      
                     {% if request.user.is_manager or  request.user.is_staff %}
                     <td>
-                      <a href="{% url 'product:update_product' product.id %}" class="btn text-secondary px-0">
+                      <a href="{% url 'update_product' product.id %}" class="btn text-secondary px-0">
                           <i class="far fa-edit fa-lg"></i>
                       </a>
                       <form action="{% url 'delete_product' product.id %}" method="post" class="d-inline">

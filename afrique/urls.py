@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'^admin/log_viewer/', include('log_viewer.urls')),
     url(r'',include('login.urls')),
     url(r'',include('client.urls')),
-    url(r'',include('products.urls',namespace="product")),
+    url(r'',include('products.urls')),
     url(r'',include('purchase.urls')),
     url(r'',include('supplier.urls')),
     url(r'',include('materials.urls')),
